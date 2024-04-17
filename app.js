@@ -10,7 +10,7 @@ const FormData = require('form-data');
 
 const app = express();
 const PORT = 3000;
-const discord_webhook_url = 'https://discord.com/api/webhooks/1225858799391346790/XxszN0uhg9SNtboQhP2N1TCi9a_kIw8CSx46RccyljKDhCWoIQ_286joUEPgJHEHveSy';
+const discord_webhook_url = '';
 
 app.use(express.static('public'));
 
