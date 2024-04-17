@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot;>
+        <text y=&quot;26&quot; x=&quot;-1&quot; font-size=&quot;28&quot;>🏆</text>
+    </svg>">
+
+    <title>Upload Image</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* เพิ่มสไตล์ CSS เพื่อกำหนดขนาดของรูปภาพ */
+        #uploadedImageContainer img {
+            max-width: 400px; /* เพิ่มขนาดรูปภาพใหญ่ขึ้นเป็น 400px */
+            height: auto; /* ความสูงจะถูกปรับอัตโนมัติเพื่อรักษาสัดส่วน */
+        }
+
+        /* กำหนดระยะห่างระหว่างรูปภาพและปุ่มคัดลอก */
+        #imageUrlContainer {
+            display: flex;
+            align-items: center; /* จัดวางให้อยู่กึ่งกลางตามแนวตั้ง */
+        }
+
+        #imageUrlContainer img,
+        #imageUrlContainer button {
+            margin-right: 10px; /* กำหนดระยะห่างขวาของรูปภาพและปุ่มคัดลอก */
+            margin-top: 10px;
+        }
+        /* สไตล์เพิ่มเติมสำหรับแจ้งเตือน */
+        #alertContainer {
+            animation: fadeIn ease 0.5s;
+        }
+
+        #successAlert {
+            margin-bottom:10px ;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    
+        
+    </style>
+</head>
+<body class="bg-gray-300 h-screen flex flex-col justify-center items-center">
+    <div id="uploadHeader" class="text-2xl font-bold mb-4">ระบบจัดเก็บรูปภาพ By K1Dev</div>
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <div id="successAlert" class="mt-4 hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
+            <strong class="font-bold">แจ้งเตือน</strong>
+            <span class="block sm:inline" id="notificationMessage">--</span>
+          
+        </div>
+        <input type="file" id="uploadInput" class="mb-4 appearance-none border border-gray-300 py-2 px-4 bg-white text-gray-700 rounded-lg shadow-sm hover:bg-gray-50 focus:outline-none focus:ring focus:border-blue-500 focus:bg-gray-50">
+
+        <div id="captchaContainer" class="mt-4 hidden">
+            <div id="captchaQuestion" class="mb-2 font-semibold"></div>
+            <input type="text" id="captchaAnswer" class="mb-2 appearance-none border border-gray-300 py-2 px-4 bg-white text-gray-700 rounded-lg shadow-sm hover:bg-gray-50 focus:outline-none focus:ring focus:border-blue-500 focus:bg-gray-50">
+            <button id="submitCaptchaBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="submitCaptcha()">ยืนยัน</button>
+        </div>
+
+        <button onclick="uploadImage()"   id="uploadButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            อัปโหลด <span id="loadingSpinner" class="hidden ">...</span>
+        </button>
+ 
+        
+        <div id="imageUrlContainer" style="display:none;" class="mt-4">
+            <input type="text" id="imageUrl" readonly class="w-full bg-gray-100 p-2 rounded">
+
+            <button onclick="copyUrl()" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                Copy URL
+            </button>
+            <div id="uploadedImageContainer" class="mt-4"></div>
+        </div>
+    </div>
+    <script src="upload.js"></script>
+</body>
+</html>
